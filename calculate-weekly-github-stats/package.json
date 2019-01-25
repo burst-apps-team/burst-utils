@@ -1,0 +1,22 @@
+{
+  "name": "calculate-weekly-github-stats",
+  "version": "1.0.0",
+  "description": "Calculates weekly github stats for the Burst Weekly Report",
+  "main": "calculate-weekly-github-stats.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/burst-apps-team/burst-utils.git"
+  },
+  "author": "blankey1337 <blankey.dev@gmail.com>",
+  "license": "GPL-3.0-or-later",
+  "bugs": {
+    "url": "https://github.com/burst-apps-team/burst-utils/issues"
+  },
+  "homepage": "https://github.com/burst-apps-team/burst-utils#readme",
+  "dependencies": {
+    "axios": "^0.18.0"
+  }
+}
