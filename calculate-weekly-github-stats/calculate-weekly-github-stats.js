@@ -26,28 +26,39 @@ const repos = [
 ]
 
 axios.all(repos.map((repo) => {
-    return axios.get(`https://api.github.com/repos/${org}/${repo}/stats/code_frequency`)
+    return axios.get(`https://api.github.com/repos/${org}/${repo}/stats/contributors`)
 })).then(axios.spread((...responses) => {
     let output = responses.map(({data}) => {
-      console.log('got a response', data.length);
-      return data && data.length && data[data.length-1].length === 3 && data[data.length-1]
-    }).reduce((prev, curr) => {
-      /** Response format:
-       * [
-          [
-            1302998400, // timestamp
-            1124, // additions
-            -435 // deletions
-          ]
-        ]
-       */
+      if (data.length) {
+        return data.map((contributor) => {
+          return contributor && 
+            contributor.weeks && 
+            contributor.weeks.length && 
+            contributor.weeks[contributor.weeks.length-1]
+        })
+        .filter((val) => val)
+        .reduce((prev, curr) => { 
+          return {
+            additions: prev.additions + curr.a,
+            deletions: prev.deletions + curr.d,
+            commits: prev.commits + curr.c
+          }
+        }, {
+          additions: 0,
+          deletions: 0,
+          commits: 0
+        });
+      }
+    }).reduce((prev, curr) => { 
       return {
-        additions: prev.additions + curr[1],
-        deletions: prev.deletions + curr[2]
+        additions: prev.additions + curr.additions,
+        deletions: prev.deletions + curr.deletions,
+        commits: prev.commits + curr.commits
       }
     }, {
       additions: 0,
-      deletions: 0
+      deletions: 0,
+      commits: 0
     });
     console.log(output);
 }))
