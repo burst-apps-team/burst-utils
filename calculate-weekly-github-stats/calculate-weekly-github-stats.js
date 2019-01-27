@@ -23,7 +23,9 @@ const repos = [
     'engraver',
     'rosetta',
     'burstcoin-mobile'
-]
+];
+
+const lastWeek = process.argv.indexOf('lastWeek') > -1 && 1 || 0;
 
 axios.all(repos.map((repo) => {
     return axios.get(`https://api.github.com/repos/${org}/${repo}/stats/contributors`)
@@ -34,7 +36,7 @@ axios.all(repos.map((repo) => {
           return contributor && 
             contributor.weeks && 
             contributor.weeks.length && 
-            contributor.weeks[contributor.weeks.length-1]
+            contributor.weeks[contributor.weeks.length-(1+lastWeek)]
         })
         .filter((val) => val)
         .reduce((prev, curr) => { 
