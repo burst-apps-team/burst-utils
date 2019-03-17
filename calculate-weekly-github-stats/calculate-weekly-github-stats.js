@@ -20,7 +20,6 @@ const repos = [
     'burstpool',
     'burstkit4j',
     'burstcoin-packager',
-    'engraver',
     'rosetta',
     'burstcoin-mobile'
 ];
@@ -32,6 +31,7 @@ axios.all(repos.map((repo) => {
 })).then(axios.spread((...responses) => {
     let output = responses.map(({data}) => {
       if (data.length) {
+        console.log(data);
         return data.map((contributor) => {
           return contributor && 
             contributor.weeks && 
@@ -52,6 +52,7 @@ axios.all(repos.map((repo) => {
         });
       }
     }).reduce((prev, curr) => { 
+      console.log(prev, curr);
       return {
         additions: prev.additions + curr.additions,
         deletions: prev.deletions + curr.deletions,
