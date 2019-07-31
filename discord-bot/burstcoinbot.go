@@ -8,7 +8,7 @@ import (
 )
 
 const (
-	AuthToken = "NjA1MzEzNzM0OTM5OTAxOTYy.XT8Kzg.NDX_JU0hIabo79mKwfdlhtfEdKs"
+	AuthToken = ""
 	BotToken = "Bot " + AuthToken
 )
 
